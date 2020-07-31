@@ -14,15 +14,9 @@ interface TransactionLine {
 }
 
 class ImportTransactionsService {
-  async execute(): Promise<Transaction[]> {
+  async execute(filename: string): Promise<Transaction[]> {
     // TODO
-    const csvFilePath = path.resolve(
-      __dirname,
-      '..',
-      '..',
-      'tmp',
-      'importTransactions.csv',
-    );
+    const csvFilePath = path.resolve(__dirname, '..', '..', 'tmp', filename);
     async function loadCSV(filePath: string): Promise<TransactionLine[]> {
       const readCSVStream = fs.createReadStream(filePath);
       const parseStream = csvParse({

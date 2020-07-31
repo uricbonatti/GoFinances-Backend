@@ -7,7 +7,7 @@ export default {
   storage: multer.diskStorage({
     destination: tmpFolder,
     filename(request, file, callback) {
-      return callback(null, 'importTransactions.csv');
+      return callback(null, `${file.filename}`);
     },
   }),
 };

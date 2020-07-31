@@ -15,9 +15,7 @@ const upload = multer(uploadConfig);
 transactionsRouter.get('/', async (request, response) => {
   // TODO
   const transactionsRepository = getCustomRepository(TransactionsRepository);
-  const transactions = await transactionsRepository.find({
-    relations: ['category'],
-  });
+  const transactions = await transactionsRepository.find();
   const balance = await transactionsRepository.getBalance();
   return response.json({ transactions, balance });
 });
@@ -49,7 +47,7 @@ transactionsRouter.post(
   async (request, response) => {
     // TODO
     const importTansactions = new ImportTransactionsService();
-    const transactions = await importTansactions.execute();
+    const transactions = await importTansactions.execute(request.file.filename);
     return response.json({ transactions });
   },
 );
